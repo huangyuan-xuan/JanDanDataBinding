@@ -10,6 +10,7 @@ public class RequestResultBean<T> {
     private int page_count;
     private int count;
     private List<T> comments;
+    private List<T> posts;
      public String getStatus() {
         return status;
     }
@@ -56,5 +57,13 @@ public class RequestResultBean<T> {
 
     public void setComments(List<T> comments) {
         this.comments = comments;
+    }
+
+    public List<T> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<T> posts) {
+        this.posts = posts;
     }
 }

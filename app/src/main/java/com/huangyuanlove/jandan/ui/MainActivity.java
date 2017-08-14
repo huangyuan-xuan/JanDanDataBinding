@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new NewsFragment());
-        fragmentList.add(new PicsFragment());
         fragmentList.add(new JokeFragment());
-        binding.includeMain.viewPager.setOffscreenPageLimit(2);
-        binding.includeMain.viewPager.setAdapter(new ContentPagerAdapter(getSupportFragmentManager(),fragmentList,tabNames));
-        binding.tabLayout.setupWithViewPager(binding.includeMain.viewPager);
+        fragmentList.add(new JokeFragment());
+        binding.viewPager.setOffscreenPageLimit(2);
+        binding.viewPager.setAdapter(new ContentPagerAdapter(getSupportFragmentManager(),fragmentList,tabNames));
+        binding.tabLayout.setupWithViewPager(binding.viewPager);
     }
 }

@@ -71,7 +71,7 @@ public class DemoActivity extends AppCompatActivity implements SwipeRefreshLayou
     private void initView() {
         setSupportActionBar(binding.toolbar);
         adapter = new JokesAdapter(this, jokeVOs);
-        binding.includeMain.listView.setAdapter(adapter);
+//        binding.includeMain.listView.setAdapter(adapter);
         binding.includeMain.swipeRefreshLayout.setOnRefreshListener(this);
         binding.includeMain.listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override

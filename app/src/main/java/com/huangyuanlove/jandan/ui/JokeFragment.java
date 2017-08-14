@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,21 +85,11 @@ public class JokeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void initView() {
         adapter = new JokesAdapter(context, jokeVOs);
-        binding.listView.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        binding.recyclerView.setAdapter(adapter);
         binding.swipeRefreshLayout.setOnRefreshListener(this);
-        binding.listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == SCROLL_STATE_IDLE && isBottom && jokeVOs.size() < totalCount) {
-                    initData(true);
-                }
-            }
 
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                isBottom = firstVisibleItem + visibleItemCount == totalItemCount;
-            }
-        });
+
     }
 
     @Override
