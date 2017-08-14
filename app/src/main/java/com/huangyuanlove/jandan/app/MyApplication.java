@@ -14,7 +14,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        retrofit = new Retrofit.Builder().baseUrl("http://jandan.net/")
+        retrofit = new Retrofit.Builder().baseUrl("http://i.jandan.net/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
