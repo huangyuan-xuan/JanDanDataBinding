@@ -9,6 +9,7 @@ import android.view.Menu;
 
 import com.huangyuanlove.jandan.R;
 import com.huangyuanlove.jandan.databinding.MainActivityBinding;
+import com.huangyuanlove.jandan.ui.fragment.GirlsFragment;
 import com.huangyuanlove.jandan.ui.fragment.JokeFragment;
 import com.huangyuanlove.jandan.ui.fragment.NewsFragment;
 import com.huangyuanlove.jandan.ui.adapter.ContentPagerAdapter;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.main_activity);
         tabNames.add("新鲜事");
         tabNames.add("无聊图");
+        tabNames.add("妹子图");
         tabNames.add("段子");
         initView();
     }
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new NewsFragment());
         fragmentList.add(new PicsFragment());
+        fragmentList.add(new GirlsFragment());
         fragmentList.add(new JokeFragment());
         binding.viewPager.setOffscreenPageLimit(2);
         binding.viewPager.setAdapter(new ContentPagerAdapter(getSupportFragmentManager(),fragmentList,tabNames));
