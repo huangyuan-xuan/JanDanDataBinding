@@ -1,14 +1,13 @@
 package com.huangyuanlove.jandan.bean;
 
-/**
- * Created by huangyuan on 2017/8/14.
- */
-
 public class NewsVO {
     private int id;
     private String title;
     private String excerpt;
-
+    private AuthorVO author;
+    private CustomFields_Thumb_cVO custom_fields;
+    private int comment_count;
+    private String  date;
     public int getId() {
         return id;
     }
@@ -33,5 +32,35 @@ public class NewsVO {
         this.excerpt = excerpt;
     }
 
+    public AuthorVO getAuthor() {
+        return author;
+    }
 
+    public void setAuthorVO(AuthorVO author) {
+        this.author = author;
+    }
+
+    public CustomFields_Thumb_cVO getCustom_fields() {
+        return custom_fields;
+    }
+
+    public void setCustom_fields(CustomFields_Thumb_cVO custom_fields) {
+        this.custom_fields = custom_fields;
+    }
+
+    public int getComment_count() {
+        return comment_count;
+    }
+
+    public void setComment_count(int comment_count) {
+        this.comment_count = comment_count;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

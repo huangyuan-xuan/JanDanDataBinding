@@ -1,4 +1,4 @@
-package com.huangyuanlove.jandan.ui;
+package com.huangyuanlove.jandan.ui.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;

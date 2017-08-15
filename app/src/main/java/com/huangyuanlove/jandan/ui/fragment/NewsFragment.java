@@ -1,4 +1,4 @@
-package com.huangyuanlove.jandan.ui;
+package com.huangyuanlove.jandan.ui.fragment;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,8 @@ import com.huangyuanlove.jandan.bean.NewsVO;
 import com.huangyuanlove.jandan.bean.RequestResultBean;
 import com.huangyuanlove.jandan.databinding.NewsFragmentBinding;
 import com.huangyuanlove.jandan.httpservice.NewsInterface;
+import com.huangyuanlove.jandan.ui.RecyclerViewScrollListener;
+import com.huangyuanlove.jandan.ui.adapter.NewsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +42,6 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private NewsAdapter adapter;
     private NewsInterface newsService;
     private int pageNum = 1;
-    private boolean isBottom;
-    private int totalCount;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,22 +60,21 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        binding.newsListView.setLayoutManager(linearLayoutManager);
         adapter = new NewsAdapter(context, newsVOs);
         binding.newsListView.setAdapter(adapter);
         binding.swipeRefreshLayout.setOnRefreshListener(this);
-        binding.newsListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        binding.newsListView.setAdapter(adapter);
+        binding.newsListView.setItemAnimator(new DefaultItemAnimator());
+        binding.newsListView.addItemDecoration(new DividerItemDecoration(context,DividerItemDecoration.VERTICAL));
+        binding.newsListView.addOnScrollListener(new RecyclerViewScrollListener(linearLayoutManager) {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == SCROLL_STATE_IDLE && isBottom && newsVOs.size() < totalCount) {
-                    initData(true);
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                isBottom = firstVisibleItem + visibleItemCount==totalItemCount;
+            public void onLoadMore() {
+                initData(true);
             }
         });
+
     }
 
     private void initData(final boolean isLoadMore) {
@@ -90,7 +92,6 @@ public class NewsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     if(isLoadMore){
                         newsVOs.addAll(response.body().getPosts());
                     }else{
-                        totalCount= response.body().getPage_count();
                         newsVOs = response.body().getPosts();
                     }
                     adapter.setLists(newsVOs);

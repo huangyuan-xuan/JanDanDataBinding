@@ -1,4 +1,4 @@
-package com.huangyuanlove.jandan.ui;
+package com.huangyuanlove.jandan.ui.fragment;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
+import android.widget.Toast;
 
 import com.huangyuanlove.jandan.R;
 import com.huangyuanlove.jandan.app.MyApplication;
@@ -19,6 +19,8 @@ import com.huangyuanlove.jandan.bean.JokeVO;
 import com.huangyuanlove.jandan.bean.RequestResultBean;
 import com.huangyuanlove.jandan.databinding.JokeFragmentBinding;
 import com.huangyuanlove.jandan.httpservice.JokeInterface;
+import com.huangyuanlove.jandan.ui.RecyclerViewScrollListener;
+import com.huangyuanlove.jandan.ui.adapter.JokesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +37,7 @@ public class JokeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private List<JokeVO> jokeVOs = new ArrayList<>();
     private JokesAdapter adapter;
     private int pageNum = 1;
-    private boolean isBottom;
-    private int totalCount;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +69,6 @@ public class JokeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     if (isLoadMore) {
                         jokeVOs.addAll(response.body().getComments());
                     } else {
-                        totalCount = response.body().getTotal_comments();
                         jokeVOs = response.body().getComments();
                     }
                     adapter.setLists(jokeVOs);
@@ -84,11 +84,18 @@ public class JokeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void initView() {
+
         adapter = new JokesAdapter(context, jokeVOs);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        binding.recyclerView.setLayoutManager(linearLayoutManager);
         binding.recyclerView.setAdapter(adapter);
         binding.swipeRefreshLayout.setOnRefreshListener(this);
-
+        binding.recyclerView.addOnScrollListener(new RecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore() {
+                initData(true);
+            }
+        });
 
     }
 

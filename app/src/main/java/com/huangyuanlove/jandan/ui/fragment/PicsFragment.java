@@ -1,4 +1,4 @@
-package com.huangyuanlove.jandan.ui;
+package com.huangyuanlove.jandan.ui.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;

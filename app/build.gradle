@@ -20,6 +20,10 @@ android {
     dataBinding {
         enabled = true
     }
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
 }
 
 dependencies {
@@ -34,5 +38,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
     testCompile 'junit:junit:4.12'
 }
