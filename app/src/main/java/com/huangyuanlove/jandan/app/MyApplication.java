@@ -2,6 +2,8 @@ package com.huangyuanlove.jandan.app;
 
 import android.app.Application;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -14,6 +16,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        CrashReport.initCrashReport(getApplicationContext(), "ad512d90ea", true);
         retrofit = new Retrofit.Builder().baseUrl("http://i.jandan.net/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
