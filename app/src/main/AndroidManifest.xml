@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
+
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
@@ -26,6 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.SettingActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.activity.AboutJanDanActivity" android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.activity.LicenceActivity" android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
