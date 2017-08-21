@@ -6,7 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.huangyuanlove.jandan.R;
@@ -29,6 +31,10 @@ public class AboutJanDanActivity extends AppCompatActivity implements View.OnCli
 
 
     private void initView() {
+        setSupportActionBar(binding.toolbar);
+        binding.toolbar.setTitleTextColor(ContextCompat.getColor(this,R.color.white));
+        binding.toolbar.setNavigationIcon(R.drawable.arrow_back_white);
+        binding.toolbar.setTitle("关于煎蛋");
         binding.developer.setOnClickListener(this);
         binding.licence.setOnClickListener(this);
     }
@@ -45,5 +51,14 @@ public class AboutJanDanActivity extends AppCompatActivity implements View.OnCli
                 startActivity(new Intent(this, LicenceActivity.class));
                 break;
         }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
