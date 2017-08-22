@@ -29,6 +29,7 @@
         <activity android:name=".ui.activity.SettingActivity" android:theme="@style/AppTheme.NoActionBar" android:label="设置"/>
         <activity android:name=".ui.activity.AboutJanDanActivity" android:theme="@style/AppTheme.NoActionBar" android:label="关于煎蛋"/>
         <activity android:name=".ui.activity.LicenceActivity" android:theme="@style/AppTheme.NoActionBar" android:label="开放源代码许可"/>
+        <activity android:name=".ui.activity.NewsDetailActivity" android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

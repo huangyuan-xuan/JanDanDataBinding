@@ -7,7 +7,7 @@ import java.util.List;
  */
 
 public class PicsVO {
-
+    private String comment_ID;
     private String comment_author;
     private String comment_author_IP;
     private String vote_positive;
@@ -82,5 +82,13 @@ public class PicsVO {
 
     public void setSub_comment_count(String sub_comment_count) {
         this.sub_comment_count = sub_comment_count;
+    }
+
+    public String getComment_ID() {
+        return comment_ID;
+    }
+
+    public void setComment_ID(String comment_ID) {
+        this.comment_ID = comment_ID;
     }
 }

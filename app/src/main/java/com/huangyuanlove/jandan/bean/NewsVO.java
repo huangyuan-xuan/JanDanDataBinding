@@ -1,6 +1,9 @@
 package com.huangyuanlove.jandan.bean;
 
-public class NewsVO {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class NewsVO implements Parcelable {
     private int id;
     private String title;
     private String excerpt;
@@ -63,4 +66,46 @@ public class NewsVO {
     public void setDate(String date) {
         this.date = date;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.excerpt);
+        dest.writeParcelable(this.author, flags);
+        dest.writeParcelable(this.custom_fields, flags);
+        dest.writeInt(this.comment_count);
+        dest.writeString(this.date);
+    }
+
+    public NewsVO() {
+    }
+
+    protected NewsVO(Parcel in) {
+        this.id = in.readInt();
+        this.title = in.readString();
+        this.excerpt = in.readString();
+        this.author = in.readParcelable(AuthorVO.class.getClassLoader());
+        this.custom_fields = in.readParcelable(CustomFields_Thumb_cVO.class.getClassLoader());
+        this.comment_count = in.readInt();
+        this.date = in.readString();
+    }
+
+    public static final Parcelable.Creator<NewsVO> CREATOR = new Parcelable.Creator<NewsVO>() {
+        @Override
+        public NewsVO createFromParcel(Parcel source) {
+            return new NewsVO(source);
+        }
+
+        @Override
+        public NewsVO[] newArray(int size) {
+            return new NewsVO[size];
+        }
+    };
 }

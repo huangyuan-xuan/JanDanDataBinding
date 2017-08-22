@@ -21,7 +21,7 @@ public class PicsAdapter extends RecyclerView.Adapter<PicsAdapter.ViewHolder>{
 
     private List<PicsVO> lists;
     private LayoutInflater inflater;
-
+    private OnItemClick onItemClick;
     public PicsAdapter(Context context, List<PicsVO> lists) {
         this.lists = lists;
         this.inflater = LayoutInflater.from(context);
@@ -31,10 +31,13 @@ public class PicsAdapter extends RecyclerView.Adapter<PicsAdapter.ViewHolder>{
         this.lists = lists;
         notifyDataSetChanged();
     }
-
+    public void setOnItemClick(OnItemClick onItemClick){
+        this.onItemClick = onItemClick;
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemPicsBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_pics,parent,false);
+
         return new ViewHolder(binding);
     }
 
@@ -42,6 +45,7 @@ public class PicsAdapter extends RecyclerView.Adapter<PicsAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.getBinding().setPicsVO(lists.get(position));
         holder.getBinding().executePendingBindings();
+        holder.getBinding().getRoot().setTag(position);
 
     }
 
@@ -51,11 +55,15 @@ public class PicsAdapter extends RecyclerView.Adapter<PicsAdapter.ViewHolder>{
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemPicsBinding binding;
+        private int position;
         public ViewHolder(ItemPicsBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.oo.setOnClickListener(this);
+            binding.xx.setOnClickListener(this);
+            position = (int) binding.getRoot().getTag();
         }
 
         public ItemPicsBinding getBinding() {
@@ -65,6 +73,15 @@ public class PicsAdapter extends RecyclerView.Adapter<PicsAdapter.ViewHolder>{
         public void setBinding(ItemPicsBinding binding) {
             this.binding = binding;
         }
-    }
 
+        @Override
+        public void onClick(View v) {
+            if(onItemClick!=null){
+                onItemClick.onClick(v,position);
+            }
+        }
+    }
+  public  interface OnItemClick{
+        void onClick(View v,int position);
+    }
 }

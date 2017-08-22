@@ -7,7 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,15 +25,12 @@ import com.huangyuanlove.jandan.ui.adapter.PicsAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by HuangYuan on 2017/8/14.
- */
-
-public class PicsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class PicsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, PicsAdapter.OnItemClick {
 
     private Activity context;
     private PicsFragmentBinding binding;
@@ -58,6 +57,7 @@ public class PicsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private void initView() {
         binding.swipeRefreshLayout.setOnRefreshListener(this);
         adapter = new PicsAdapter(context,picsVOs);
+        adapter.setOnItemClick(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         binding.picsListView.setLayoutManager(linearLayoutManager);
         binding.picsListView.setAdapter(adapter);
@@ -100,5 +100,37 @@ public class PicsFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onRefresh() {
         initData(false);
+    }
+
+    @Override
+    public void onClick(View v, int position) {
+        switch (v.getId()){
+            case R.id.oo:
+                picService.votePic(1,picsVOs.get(position).getComment_ID()).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+                break;
+            case R.id.xx:
+                picService.votePic(0,picsVOs.get(position).getComment_ID()).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+                break;
+        }
     }
 }

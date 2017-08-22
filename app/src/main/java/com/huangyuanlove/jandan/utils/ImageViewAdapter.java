@@ -32,6 +32,7 @@ public class ImageViewAdapter {
                     .asGif()
                     .placeholder(placeHolder)
                     .thumbnail(0.1f)
+                    .animate(android.R.anim.slide_in_left)
                     .error(errorHolder)
                     .into(imageView);
         } else {
@@ -39,6 +40,7 @@ public class ImageViewAdapter {
                     .load(url)
                     .placeholder(placeHolder)
                     .thumbnail(0.1f)
+                    .animate(android.R.anim.slide_in_left)
                     .error(errorHolder)
                     .into(imageView);
         }

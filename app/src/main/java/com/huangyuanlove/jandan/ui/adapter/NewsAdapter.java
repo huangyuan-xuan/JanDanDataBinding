@@ -1,6 +1,7 @@
 package com.huangyuanlove.jandan.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import com.huangyuanlove.jandan.R;
 import com.huangyuanlove.jandan.bean.NewsVO;
 import com.huangyuanlove.jandan.databinding.ItemNewsBinding;
+import com.huangyuanlove.jandan.ui.activity.NewsDetailActivity;
 
 import java.util.List;
 
@@ -20,8 +22,9 @@ import java.util.List;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private List<NewsVO> lists;
     private LayoutInflater inflater;
-
+    private Context context;
     public NewsAdapter(Context context, List<NewsVO> lists) {
+        this.context = context;
         this.lists = lists;
         this.inflater = LayoutInflater.from(context);
     }
@@ -48,12 +51,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         return lists==null?0:lists.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ItemNewsBinding binding;
 
         public ViewHolder(ItemNewsBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(this);
         }
 
         public ItemNewsBinding getBinding() {
@@ -62,6 +66,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         public void setBinding(ItemNewsBinding binding) {
             this.binding = binding;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, NewsDetailActivity.class);
+            intent.putExtra("newsVO",binding.getNewsVo());
+            context.startActivity(intent);
         }
     }
 

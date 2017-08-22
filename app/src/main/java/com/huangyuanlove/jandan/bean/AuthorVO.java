@@ -1,10 +1,13 @@
 package com.huangyuanlove.jandan.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by HuangYuan on 2017/8/15.
  */
 
-public class AuthorVO {
+public class AuthorVO implements Parcelable {
 
 
     /**
@@ -90,4 +93,48 @@ public class AuthorVO {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.slug);
+        dest.writeString(this.name);
+        dest.writeString(this.first_name);
+        dest.writeString(this.last_name);
+        dest.writeString(this.nickname);
+        dest.writeString(this.url);
+        dest.writeString(this.description);
+    }
+
+    public AuthorVO() {
+    }
+
+    protected AuthorVO(Parcel in) {
+        this.id = in.readInt();
+        this.slug = in.readString();
+        this.name = in.readString();
+        this.first_name = in.readString();
+        this.last_name = in.readString();
+        this.nickname = in.readString();
+        this.url = in.readString();
+        this.description = in.readString();
+    }
+
+    public static final Parcelable.Creator<AuthorVO> CREATOR = new Parcelable.Creator<AuthorVO>() {
+        @Override
+        public AuthorVO createFromParcel(Parcel source) {
+            return new AuthorVO(source);
+        }
+
+        @Override
+        public AuthorVO[] newArray(int size) {
+            return new AuthorVO[size];
+        }
+    };
 }
