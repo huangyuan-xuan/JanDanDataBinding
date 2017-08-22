@@ -39,5 +39,6 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.orhanobut:hawk:2.0.1'
     testCompile 'junit:junit:4.12'
 }

@@ -112,6 +112,19 @@
                     android:layout_height="wrap_content"
                     android:text="@string/gson_licence"
                     android:textColor="@color/grey_666" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Hawk"
+                    android:textColor="@color/grey_333"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hawk_licence"
+                    android:textColor="@color/grey_666" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

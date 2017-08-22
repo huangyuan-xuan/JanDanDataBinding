@@ -2,6 +2,7 @@ package com.huangyuanlove.jandan.app;
 
 import android.app.Application;
 
+import com.orhanobut.hawk.Hawk;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import retrofit2.Retrofit;
@@ -20,5 +21,6 @@ public class MyApplication extends Application {
         retrofit = new Retrofit.Builder().baseUrl("http://i.jandan.net/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        Hawk.init(this).build();
     }
 }
